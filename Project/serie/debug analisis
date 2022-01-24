@@ -1,0 +1,63 @@
+void diseases (struct ginfo *iingrs, float dise[][TDISEASE], struct analysis *disepro)
+{
+   int a, j, k, gmax, telem, gmin;
+   float bmedian, lmedian, tmedian;
+   for(int i = 0; i < TDISEASE; i++){
+      lmedian = FLT_MAX;
+      bmedian = FLT_MIN;
+      for(j = 0; j < NGROUPS; j++){
+         telem = iingrs[j].size;
+         float pro[telem];
+         for( k = 0; k<telem; k++){ 
+            a = iingrs[j].members[k];
+            pro[k] = dise[a][i];
+         }
+         //printf("SIN Ordenar");
+         //for(int x = 0; x<telem;x++){
+            //printf("%f", pro[x]);
+            //printf("\n");
+         //}
+         bubbleSort(&pro, telem);
+
+         printf("ORDENADO LA ENFERMEDAD %d, EL GRUPO %d \n", i, j);
+         if(telem!=0)
+          for(int x = 0; x<=telem;x++){
+            printf("%f", pro[x]);
+            printf("\n");
+         }
+          printf("ORDENADO LA ENFERMEDAD %d, EL GRUPO %d \n", i, j);
+
+         int size = sizeof pro/sizeof pro[0];
+         if(size>1){ 
+         tmedian = pro[(telem/2)];
+         }else if(size ==1){
+            tmedian = pro[0];
+         }
+
+         //printf(" valor mediano : %f del grupo : %d", tmedian, j);
+
+         if(tmedian > 0 && tmedian < lmedian){
+            lmedian = tmedian;
+            gmin = j;
+
+            printf("POR AHORA EL VALOR PEQUEÑO ES: %f y el grupo es: %d \n", lmedian, j);
+
+
+         } else if(tmedian > bmedian){
+               bmedian = tmedian;
+               gmax = j;
+               printf("POR AHORA EL VALOR GRANDE ES: %f y el grupo es: %d \n", bmedian, j);
+         }
+         
+      
+      }
+      printf("AQUI HAY CAMBIO DE ENFERMEDAD \n");
+      tmedian = 0.0;
+      disepro[i].gmax = gmax;
+      printf("EL VALOR PEQUEÑO ES: %f y el grupo es: %d \n", lmedian, gmin);
+      disepro[i].mmin = lmedian;
+      disepro[i].gmin = gmin;
+      printf("EL VALOR GRANDE ES: %f y el grupo es: %d \n", bmedian, gmax);
+      disepro[i].mmax = bmedian;
+   }
+}

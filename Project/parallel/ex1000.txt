@@ -1,0 +1,2 @@
+gcc -O2 -o gengroups_p gengroups_p.c fungg_p.c -lm -fopenmp
+./gengroups_p dbgen.dat dbdise.dat 1000

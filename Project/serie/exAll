@@ -1,0 +1,2 @@
+gcc -O2 -o gengroups_s gengroups_s.c fungg_s.c -lm
+./gengroups_s dbgen.dat dbdise.dat 211640
